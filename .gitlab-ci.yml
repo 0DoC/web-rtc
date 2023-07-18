@@ -20,7 +20,7 @@ docker-image:
   stage: build
   image: docker:24.0.4
   services:
-    - docker: 24.0.4-dind
+    - docker:24.0.4-dind
   script: 
     - docker build -t $CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE:$CI_JOB_ID .
     - docker image ls
