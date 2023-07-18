@@ -17,7 +17,8 @@ unit-test-job:   # This job runs in the test stage.
   stage: test
   image: node:current-alpine3.18     
   script:
-    - node server.js &
+    - npm install -g serve
+    - serve -s build -p 80
     - apk add curl
     - sleep 10
     - curl http://localhost:80
