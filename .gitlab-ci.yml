@@ -1,7 +1,6 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
-  - test
-  - deploy
+  - create
 variables:
   APP_VERSION: $CI_PIPELINE_ID
 build-job:      
@@ -16,7 +15,7 @@ build-job:
       - build
 
 docker-image:
-  stage: build
+  stage: create
   image: docker:24.0.4
   services:
     - docker:24.0.4-dind
