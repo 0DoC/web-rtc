@@ -2,37 +2,26 @@ stages:          # List of stages for jobs, and their order of execution
   - build
   - test
   - deploy
-
+variables:
+  APP_VERSION: $CI_PIPELINE_ID
 build-job:       # This job runs in the build stage, which runs first.
   stage: build
   image: node:current-alpine3.18
   script:
     - npm install
     - npm run build
+    - npm run test
+    - echo $APP_VERSION
   artifacts:
     paths:
       - build
 
-unit-test-job:   # This job runs in the test stage.
-  stage: test
-  image: node:current-alpine3.18     
-  script:
-    - npm install -g serve
-    - serve -s build -p 80 &
-    - apk add curl
-    - sleep 10
-    - curl http://localhost:80
-
-.lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
-
-.deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  environment: production
-  script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+build-docker-image:
+  stage: build
+  image: docker:24.0.4
+  services:
+    - docker: 24.0.4-dind
+  script: 
+    - docker build -t $CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE:$CI_JOB_ID .
+    - docker image ls
+    
