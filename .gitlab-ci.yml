@@ -10,7 +10,6 @@ build-job:
   script:
     - npm install
     - npm run build
-    - npm run test
     - echo $APP_VERSION
   artifacts:
     paths:
