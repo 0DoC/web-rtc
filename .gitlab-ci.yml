@@ -28,7 +28,7 @@ docker-create-image:
 
 docker-push-image:
   stage: push
-    image: docker:24.0.4
+    image: $DOCKER_REGISTRY/$APP_NAME:"$TAG"
   services:
     - docker:24.0.4-dind
   script:
