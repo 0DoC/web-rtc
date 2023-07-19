@@ -1,7 +1,7 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
   - create
-  - push
+  - push-image
 
 variables:
   APP_VERSION: $CI_PIPELINE_ID
@@ -27,7 +27,7 @@ docker-create-image:
     - docker image ls
 
 docker-push-image:
-  stage: push
+  stage: push-image
     image: $DOCKER_REGISTRY/$APP_NAME:"$TAG"
   services:
     - docker:24.0.4-dind
