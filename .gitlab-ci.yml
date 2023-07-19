@@ -7,8 +7,8 @@ variables:
   APP_VERSION: $CI_PIPELINE_ID
   DOCKER_REGISTRY: 100525915128.dkr.ecr.us-east-2.amazonaws.com/
   APP_NAME: andersen-task-stage
-  TAG: $CI_REGISTRY_IMAGE:$CI_JOB_ID
-
+  TAG: $CI_PIPELINE_ID
+  
 build-job:      
   stage: build
   image: node:current-alpine3.18
