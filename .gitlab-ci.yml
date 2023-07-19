@@ -34,7 +34,7 @@ docker-push-image:
     name: docker:24.0.4
   services:
     - docker:24.0.4-dind
-  before-script:
+  before_script:
     - apk add python3 py3-pip
     - pip3 install --no-cache-dir awscli
   script:
