@@ -22,6 +22,8 @@ build-job:
 
 docker-create-image:
   stage: create
+  services:
+    - docker:24.0.4-dind
   script: 
     - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG  .
     - docker image ls
