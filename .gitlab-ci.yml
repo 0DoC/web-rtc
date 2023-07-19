@@ -19,7 +19,7 @@ variables:
 docker-push-image:
   stage: push-image
   image: 
-    name: $DOCKER_REGISTRY/$APP_NAME:$TAG
+    name: docker:24.0.4
   services:
     - docker:24.0.4-dind
   script:
