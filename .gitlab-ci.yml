@@ -5,7 +5,7 @@ stages:          # List of stages for jobs, and their order of execution
 
 variables:
   APP_VERSION: $CI_PIPELINE_ID
-  DOCKER_REGISTRY: 100525915128.dkr.ecr.us-east-2.amazonaws.com/andersen-task-stage
+  DOCKER_REGISTRY: 100525915128.dkr.ecr.us-east-2.amazonaws.com/
   APP_NAME: andersen-task-stage
   TAG: $CI_REGISTRY_IMAGE:$CI_JOB_ID
 
