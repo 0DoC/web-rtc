@@ -22,7 +22,7 @@ build-job:
 
 docker-create-image:
   stage: create
-  iamge: docker:24.0.4
+  image: docker:24.0.4
   services:
     - docker:24.0.4-dind
   script: 
