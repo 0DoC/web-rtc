@@ -1,8 +1,14 @@
 stages:          # List of stages for jobs, and their order of execution
   - build
   - create
+  - push
+
 variables:
   APP_VERSION: $CI_PIPELINE_ID
+  DOCKER_REGISTRY: 100525915128.dkr.ecr.us-east-2.amazonaws.com/andersen-task-stage
+  APP_NAME: andersen-task-stage
+  TAG: $CI_REGISTRY_IMAGE:$CI_JOB_ID
+
 build-job:      
   stage: build
   image: node:current-alpine3.18
@@ -14,12 +20,18 @@ build-job:
     paths:
       - build
 
-docker-image:
+docker-create-image:
   stage: create
-  image: docker:24.0.4
+  script: 
+    - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG  .
+    - docker image ls
+
+docker-push-image:
+  stage: push
+    image: docker:24.0.4
   services:
     - docker:24.0.4-dind
-  script: 
-    - docker build -t $CI_REGISTRY_IMAGE -t $CI_REGISTRY_IMAGE:$CI_JOB_ID .
-    - docker image ls
-    
+  script:
+    - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - docker tag $DOCKER_REGISTRY/$APP_NAME:"$TAG" $DOCKER_REGISTRY/$APP_NAME:"$TAG"
+    - docker push $DOCKER_REGISTRY/$APP_NAME:"$TAG"
