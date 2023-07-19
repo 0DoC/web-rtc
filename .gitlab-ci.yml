@@ -34,6 +34,9 @@ docker-push-image:
     name: docker:24.0.4
   services:
     - docker:24.0.4-dind
+  before-script:
+    - apk add python3 py3-pip
+    - pip3 install --no-cache-dir awscli
   script:
     - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG  .
     - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
