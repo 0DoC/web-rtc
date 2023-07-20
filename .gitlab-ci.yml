@@ -18,6 +18,7 @@ build-job:
   artifacts:
     paths:
       - build
+      - node_modules
 
 .docker-create-image:
   stage: create
