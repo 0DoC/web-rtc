@@ -6,7 +6,8 @@ variables:
   APP_VERSION: $CI_PIPELINE_ID
   DOCKER_REGISTRY: 100525915128.dkr.ecr.us-east-2.amazonaws.com
   APP_NAME: andersen-task-stage
-  TAG: V1.0
+  CONTAINER_TEST_IMAGE: $DOCKER_REGISTRY/$APP_NAME:$CI_COMMIT_REF_SLUG
+  CONTAINER_RELEASE_IMAGE: $DOCKER_REGISTRY/$APP_NAME:latest
 
 build-job:      
   stage: build
@@ -20,15 +21,6 @@ build-job:
       - build
       - node_modules
 
-.docker-create-image:
-  stage: create
-  image: docker:24.0.4
-  services:
-    - docker:24.0.4-dind
-  script: 
-    - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG  .
-    - docker image ls
-
 docker-push-image:
   stage: push-image
   image: 
@@ -39,7 +31,8 @@ docker-push-image:
     - apk add python3 py3-pip
     - pip3 install --no-cache-dir awscli
   script:
-    - docker build -t $DOCKER_REGISTRY/$APP_NAME:$TAG  .
+    - docker build -t $CONTAINER_TEST_IMAGE  .
     - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin $DOCKER_REGISTRY
-    - docker tag $DOCKER_REGISTRY/$APP_NAME:"$TAG" $DOCKER_REGISTRY/$APP_NAME:"$TAG"
-    - docker push $DOCKER_REGISTRY/$APP_NAME:"$TAG"
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_TEST_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
