@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: and-ingress
+  annotations:
+    nginx.ingress.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: idocdevopsprojects.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: andersen
+            port:
+              number: 443

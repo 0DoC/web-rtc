@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: andersen
+  labels: 
+    app: andersen
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: andersen
+  template:
+    metadata:
+      labels:
+        app: andersen
+    spec:
+      containers:
+      - name: andersen
+        image: 100525915128.dkr.ecr.us-east-2.amazonaws.com/andersen-task-stage:latest
+        ports:
+        - name: andersen-port
+          containerPort: 443
