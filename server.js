@@ -6,7 +6,7 @@ const io = require('socket.io')(server);
 const {version, validate} = require('uuid');
 
 const ACTIONS = require('./src/socket/actions');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 
 function getClientRooms() {
   const {rooms} = io.sockets.adapter;
