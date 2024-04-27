@@ -4,6 +4,7 @@ COPY ./ ./
 COPY package*.json ./
 RUN npm install
 RUN npm run build
+RUN ls -l
 
 FROM node:current-alpine
 COPY --from=BUILD_IMAGE node_modules ./
