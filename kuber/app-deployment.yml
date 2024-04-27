@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: andersen
-        image: 100525915128.dkr.ecr.us-east-2.amazonaws.com/andersen-task-stage:latest
+        image: idocdevops/webrtc:v1.0
         ports:
         - name: andersen-port
           containerPort: 443
