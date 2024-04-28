@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: andersen
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: andersen
@@ -19,4 +19,4 @@ spec:
         image: idocdevops/webrtc:v1.0
         ports:
         - name: andersen-port
-          containerPort: 443
+          containerPort: 80
