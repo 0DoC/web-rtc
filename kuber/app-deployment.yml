@@ -15,8 +15,10 @@ spec:
         app: andersen
     spec:
       containers:
-      - name: andersen
+      - name: private
         image: idocdevops/webrtc:v1.0
         ports:
         - name: andersen-port
           containerPort: 80
+      imagePullSecrets:
+      - name: dockerhub
