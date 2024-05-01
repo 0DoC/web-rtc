@@ -3,8 +3,10 @@ kind: Ingress
 metadata:
   name: and-ingress
   annotations:
-    nginx.ingress.io/use-regex: "true"
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-north-1:339712878042:certificate/0200005f-1794-4cfa-a3da-ce65c48fb4c2
+    kubernetes.io/ingress.class: alb
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 spec: 
   rules:
   - host: idocdevopsprojects.com
@@ -17,4 +19,3 @@ spec:
             name: andersen
             port:
               number: 443
-  ingressClassName: nginx
