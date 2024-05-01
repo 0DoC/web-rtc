@@ -4,6 +4,7 @@ metadata:
   name: and-ingress
   annotations:
     nginx.ingress.io/use-regex: "true"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:eu-north-1:339712878042:certificate/0200005f-1794-4cfa-a3da-ce65c48fb4c2
 spec: 
   rules:
   - host: idocdevopsprojects.com

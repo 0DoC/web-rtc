@@ -8,9 +8,14 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 spec:
   ports:
-  - port: 80
-    targetPort: 80
-    protocol: TCP
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: andersen-port
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: andersen-port
   selector:
     app: andersen
   type: LoadBalancer
