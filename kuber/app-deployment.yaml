@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: private
-        image: idocdevops/webrtc:v1.0
+        image: idocdevops/webrtc:v0.1.1
         ports:
         - name: andersen-port
           containerPort: 80
